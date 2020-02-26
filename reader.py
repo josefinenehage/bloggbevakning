@@ -5,6 +5,9 @@ parser = argparse.ArgumentParser(description='Send in URLS you want notification
 parser.add_argument('urls', nargs='+')
 args = parser.parse_args()
 
+# https://techcrunch.com/feed/
+# https://geekwire.com/feed/
+
 for url in args.urls:
     file_name = url
     if file_name.startswith("https://"):
@@ -27,7 +30,7 @@ for url in args.urls:
         file = open(f'{file_name}.txt', 'r+')
         saved = file.read()
         if saved != entry.published:
-            notification.send_notification(file_name, f"Nytt inlägg {entry.title}", entry.link)
+            notification.send_notification(file_name, f"Nytt inlägg: {entry.title}", entry.link)
     except FileNotFoundError:
         file = open(f'{file_name}.txt', 'w')
 
